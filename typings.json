@@ -1,0 +1,4 @@
+{
+  "name": "aurelia-facebook-sdk",
+  "main": "dist/amd/facebook-sdk.d.ts"
+}
