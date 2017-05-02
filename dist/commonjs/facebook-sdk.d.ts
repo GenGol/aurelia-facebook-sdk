@@ -6,4 +6,5 @@ export declare class FB {
     getScript(): any;
     getLoginStatus(): Promise<any>;
     login(): Promise<any>;
+    logout(): Promise<any>;
 }

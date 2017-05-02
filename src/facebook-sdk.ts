@@ -78,4 +78,15 @@ export class FB {
         });
       });
   }
+
+  logout(): Promise<any> {
+    return this.getScript()
+      .then(() => {
+        return new Promise((resolve, reject) => {
+          this._fb.logout((response) => {
+            resolve(response);
+          });
+        });
+      });
+  }
 }

@@ -74,6 +74,17 @@ define(["require", "exports", "aurelia-dependency-injection", "aurelia-templatin
                 });
             });
         };
+        FB.prototype.logout = function () {
+            var _this = this;
+            return this.getScript()
+                .then(function () {
+                return new Promise(function (resolve, reject) {
+                    _this._fb.logout(function (response) {
+                        resolve(response);
+                    });
+                });
+            });
+        };
         return FB;
     }());
     FB = __decorate([
