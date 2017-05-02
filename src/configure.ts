@@ -1,6 +1,7 @@
 export interface ConfigInterface {
     appId: string;
     lang: string;
+    scope: string;
 }
 
 export class Configure {
