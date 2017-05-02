@@ -7,4 +7,5 @@ export declare class FB {
     getLoginStatus(): Promise<any>;
     login(): Promise<any>;
     logout(): Promise<any>;
+    api(path: string, method?: string, params?: object): Promise<any>;
 }

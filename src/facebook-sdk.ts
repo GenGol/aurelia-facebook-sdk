@@ -89,4 +89,19 @@ export class FB {
         });
       });
   }
+
+  api(path: string, method: string = 'get', params?: object): Promise<any> {
+    return this.getScript()
+      .then(() => {
+        return new Promise((resolve, reject) => {
+          this._fb.api(path, method, params, (response) => {
+            if (!response || response.error) {
+              reject(response);
+            } else {
+              resolve(response);
+            }
+          });
+        });
+      });
+  }
 }

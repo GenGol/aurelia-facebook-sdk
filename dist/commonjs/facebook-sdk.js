@@ -87,6 +87,23 @@ var FB = (function () {
             });
         });
     };
+    FB.prototype.api = function (path, method, params) {
+        var _this = this;
+        if (method === void 0) { method = 'get'; }
+        return this.getScript()
+            .then(function () {
+            return new Promise(function (resolve, reject) {
+                _this._fb.api(path, method, params, function (response) {
+                    if (!response || response.error) {
+                        reject(response);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+        });
+    };
     return FB;
 }());
 FB = __decorate([
