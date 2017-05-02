@@ -49,7 +49,6 @@ define(["require", "exports", "aurelia-dependency-injection", "aurelia-templatin
             var _this = this;
             return this.getScript()
                 .then(function () {
-                console.log('asdasd');
                 return new Promise(function (resolve, reject) {
                     _this._fb.getLoginStatus(function (response) {
                         resolve(response);
