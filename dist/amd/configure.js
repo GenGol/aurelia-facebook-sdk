@@ -5,7 +5,8 @@ define(["require", "exports"], function (require, exports) {
         function Configure() {
             this._config = {
                 appId: '',
-                lang: 'en_US'
+                lang: 'en_US',
+                scope: 'public_profile'
             };
         }
         Configure.prototype.options = function (obj) {

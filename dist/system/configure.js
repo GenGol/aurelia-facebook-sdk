@@ -9,7 +9,8 @@ System.register([], function (exports_1, context_1) {
                 function Configure() {
                     this._config = {
                         appId: '',
-                        lang: 'en_US'
+                        lang: 'en_US',
+                        scope: 'public_profile'
                     };
                 }
                 Configure.prototype.options = function (obj) {

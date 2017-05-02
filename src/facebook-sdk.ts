@@ -73,7 +73,7 @@ export class FB {
               reject(response);
             }
           }, {
-            scope: 'public_profile,user_events'
+            scope: this._config.get('scope')
           });
         });
       });

@@ -69,7 +69,7 @@ define(["require", "exports", "aurelia-dependency-injection", "aurelia-templatin
                             reject(response);
                         }
                     }, {
-                        scope: 'public_profile,user_events'
+                        scope: _this._config.get('scope')
                     });
                 });
             });

@@ -9,7 +9,8 @@ export class Configure {
     constructor() {
         this._config = {
             appId: '',
-            lang: 'en_US'
+            lang: 'en_US',
+            scope: 'public_profile'
         };
     }
 
