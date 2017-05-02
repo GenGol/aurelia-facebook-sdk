@@ -16,9 +16,10 @@ var FB = (function () {
     function FB(config) {
         this._scriptPromise = null;
         this._config = config;
-        this.initAPI();
+        this.getScript();
     }
     FB.prototype.getScript = function () {
+        var _this = this;
         if (this._scriptPromise !== null) {
             return this._scriptPromise;
         }
@@ -31,6 +32,11 @@ var FB = (function () {
             document.body.appendChild(script_1);
             this._scriptPromise = new Promise(function (resolve, reject) {
                 window.fbAsyncInit = function () {
+                    _this._fb = window.FB;
+                    _this._fb.init({
+                        appId: _this._config.get('appId'),
+                        version: 'v2.9'
+                    });
                     resolve();
                 };
                 script_1.onerror = function (error) {
@@ -41,37 +47,33 @@ var FB = (function () {
         }
         return false;
     };
-    FB.prototype.initAPI = function () {
-        var _this = this;
-        this.getScript()
-            .then(function () {
-            _this._fb = window.FB;
-            _this._fb.init({
-                appId: _this._config.get('appId'),
-                version: 'v2.9'
-            });
-        });
-    };
     FB.prototype.getLoginStatus = function () {
         var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this._fb.getLoginStatus(function (response) {
-                resolve(response);
+        return this.getScript()
+            .then(function () {
+            console.log('asdasd');
+            return new Promise(function (resolve, reject) {
+                _this._fb.getLoginStatus(function (response) {
+                    resolve(response);
+                });
             });
         });
     };
     FB.prototype.login = function () {
         var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this._fb.login(function (response) {
-                if (response.authResponse) {
-                    resolve(response);
-                }
-                else {
-                    reject(response);
-                }
-            }, {
-                scope: 'public_profile,user_events'
+        return this.getScript()
+            .then(function () {
+            return new Promise(function (resolve, reject) {
+                _this._fb.login(function (response) {
+                    if (response.authResponse) {
+                        resolve(response);
+                    }
+                    else {
+                        reject(response);
+                    }
+                }, {
+                    scope: 'public_profile,user_events'
+                });
             });
         });
     };

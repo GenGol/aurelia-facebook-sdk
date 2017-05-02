@@ -12,7 +12,7 @@ export class FB {
 
   constructor(config) {
     this._config = config;
-    this.initAPI();
+    this.getScript();
   }
 
   getScript() {
@@ -33,6 +33,11 @@ export class FB {
       // Lets setup the promise so that it resolves when the callback is called
       this._scriptPromise = new Promise((resolve, reject) => {
         (<any>window).fbAsyncInit = () => {
+          this._fb = (<any>window).FB;
+          this._fb.init({
+            appId: this._config.get('appId'),
+            version: 'v2.9'
+          });
           resolve();
         };
 
@@ -46,36 +51,31 @@ export class FB {
     return false;
   }
 
-  initAPI() {
-    this.getScript()
-      .then(() => {
-        this._fb = (<any>window).FB;
-        this._fb.init({
-          appId: this._config.get('appId'),
-          version: 'v2.9'
-        })
-      });
-  }
-
   getLoginStatus(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this._fb.getLoginStatus((response) => {
-        resolve(response);
+    return this.getScript()
+      .then(() => {
+        return new Promise((resolve, reject) => {
+          this._fb.getLoginStatus((response) => {
+            resolve(response);
+          });
+        });
       });
-    });
   }
 
   login(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this._fb.login((response) => {
-        if (response.authResponse) {
-          resolve(response);
-        } else {
-          reject(response);
-        }
-      }, {
-        scope: 'public_profile,user_events'
-      })
-    })
+    return this.getScript()
+      .then(() => {
+        return new Promise((resolve, reject) => {
+          this._fb.login((response) => {
+            if (response.authResponse) {
+              resolve(response);
+            } else {
+              reject(response);
+            }
+          }, {
+            scope: 'public_profile,user_events'
+          });
+        });
+      });
   }
 }
