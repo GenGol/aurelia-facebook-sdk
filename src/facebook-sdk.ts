@@ -36,7 +36,8 @@ export class FB {
           this._fb = (<any>window).FB;
           this._fb.init({
             appId: this._config.get('appId'),
-            version: 'v2.9'
+            version: 'v2.9',
+            cookie: true
           });
           resolve();
         };

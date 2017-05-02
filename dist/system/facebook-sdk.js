@@ -47,7 +47,8 @@ System.register(["aurelia-dependency-injection", "aurelia-templating", "./config
                                 _this._fb = window.FB;
                                 _this._fb.init({
                                     appId: _this._config.get('appId'),
-                                    version: 'v2.9'
+                                    version: 'v2.9',
+                                    cookie: true
                                 });
                                 resolve();
                             };
